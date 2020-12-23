@@ -1,14 +1,20 @@
-###### **CERO PROJECT SOLIDITY PART**
-
-`truffle compile` - компилирование контрактов
-
-`truffle migrate` - миграция в среду
-
-`truffle test <./test/....js>` - тестирование контрактов
-
-https://www.trufflesuite.com/docs/truffle
-
 ## **Testing**:
-- download [Ganache](https://www.trufflesuite.com/ganache);
-- run Ganache client;
-- run `make test`
+- Download [Ganache](https://www.trufflesuite.com/ganache);
+- Run Ganache client;
+- Run `make test` or `make test path=./test/...`;
+
+Test automatically compiling and migrating contract to local blockchain.
+
+## **Правила**:
+- При деплое контракта в сеть, создается "нулевой" герой, он является первым
+родителем для всех других героев;
+- Пользователь должен платить за создание героя;
+
+#### **Герои**:
+Герои могут быть 3 классов (Воин, Вор, Волшебник). Класс героя определяется по
+комбинации ключевых характеристик (сила, защита, ловкость, магия). Минимальная
+сумма очков характеристик длякаждого героя - 12, далее есть возможность
+случайно получить от 0 до 2 очков для каждой характеристики. В общем, можно
+иметь не более 20 очков для первого уровня.<br>Сила магов равна 0. Магия
+для **не** магов равна 0.
+s
