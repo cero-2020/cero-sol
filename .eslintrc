@@ -1,7 +1,7 @@
 {
   "extends": [
     "eslint:recommended",
-    "airbnb"
+    "airbnb/base"
   ],
   "plugins": [
   ],
@@ -19,8 +19,6 @@
     }
   },
   "rules": {
-    "react/jsx-uses-react": "error",
-    "react/jsx-uses-vars": "error",
     "max-len": ["error", { "code": 120 }],
     "no-console": "off",
     "import/prefer-default-export": "off",

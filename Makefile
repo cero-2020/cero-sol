@@ -6,3 +6,6 @@ migrate:
 
 tests:
 	@truffle test $(path)
+
+qa:
+	@eslint ./test ./migrations
