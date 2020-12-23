@@ -1,15 +1,15 @@
 const CeroFactory = artifacts.require('CeroFactory');
 
-function logCero(obj) {
-  const newObj = {
-    name: obj.name,
-    str: obj.strenght.toNumber(),
-    prot: obj.protection.toNumber(),
-    agi: obj.agility.toNumber(),
-    mag: obj.magic.toNumber(),
-  };
-  console.log(newObj);
-}
+// function logCero(obj) {
+//   const newObj = {
+//     name: obj.name,
+//     str: obj.strenght.toNumber(),
+//     prot: obj.protection.toNumber(),
+//     agi: obj.agility.toNumber(),
+//     mag: obj.magic.toNumber(),
+//   };
+//   console.log(newObj);
+// }
 
 contract('Test CeroFactory contract', (accounts) => {
   const contractOnwer = accounts[0];

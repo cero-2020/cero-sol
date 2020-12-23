@@ -1,15 +1,5 @@
 const CeroFactory = artifacts.require('CeroFactory');
 
-const errTypes = {
-  revert: 'revert',
-  outOfGas: 'out of gas',
-  invalidJump: 'invalid JUMP',
-  invalidOpcode: 'invalid opcode',
-  stackOverflow: 'stack overflow',
-  stackUnderflow: 'stack underflow',
-  staticStateChange: 'static state change',
-};
-
 contract('Test CeroFactory contract', (accounts) => {
   const contractOnwer = accounts[0];
   const client1 = accounts[1];
