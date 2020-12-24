@@ -44,7 +44,7 @@ contract('Test CeroFactory contract', (accounts) => {
       try {
         await instance.createFirstCero({ from: client1 });
       } catch (e) {
-        assert.equal(e.message.includes('This address already have Cero!'), true);
+        assert.equal(e.message.includes('This address already have a Cero!'), true);
       }
     });
   });

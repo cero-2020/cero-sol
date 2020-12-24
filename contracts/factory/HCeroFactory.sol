@@ -1,14 +1,16 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.7.0;
 
-import "./services/Randomize.sol";
+import "../services/NameGenerator.sol";
 
-contract CeroFactory is Randomize {
-
+contract HCeroFactory is NameGenerator {
+    /**
+     * @param name
+     */
     struct Cero {
         string name;
         uint8 lvl;
-        uint16 strenght;
+        uint16 strength;
         uint16 protection;
         uint16 agility;
         uint16 magic;
@@ -20,48 +22,40 @@ contract CeroFactory is Randomize {
         uint32 cooldown;
     }
 
-    // Contain all ceroes
+    /**
+     * @notice Contain Ceroes data
+     */
     Cero[] public ceroes;
 
-    // Mapping between Cero number and owner address
+    /**
+     * @notice Contain "Cero number" => "owner address"
+     */
     mapping(uint => address) public ceroesToOwner;
 
-    // Mapping between owner and Cero count for this owner
+    /**
+     * @notice Contain "owner address" => "ceroes count for address"
+     */
     mapping (address => uint) public ownerToCeroesCount;
 
-
-    constructor() {
-        _createCero(msg.sender, 'This is first Cero', 0, 0, 0, 0, 0, 0, 0, false);
-    }
-
-    // Create a Cero
-    function createCero() public {
-        createRandomCero();
-    }
-
-    // Create a first Cero
-    function createFirstCero() public {
-        require(ownerToCeroesCount[msg.sender] == 0, 'This address already have Cero!');
-        createRandomCero();
-    }
-
-    // Create a random Cero
-    function createRandomCero() internal {
-
+    /**
+     * @notice Create random Cero lvl1
+     */
+    function _createRandomBaseCero() internal {
         uint ceroType = random(3);
-
         if (ceroType == 0) {
-            _createBaseCero(msg.sender, 'Warrior', 6, 6, 2, 0);
+            _createBaseCero(msg.sender, _getCeroName(), 6, 6, 2, 0);
         }
         if (ceroType == 1) {
-            _createBaseCero(msg.sender, 'Thief', 6, 2, 6, 0);
+            _createBaseCero(msg.sender, _getCeroName(), 6, 2, 6, 0);
         }
         if (ceroType == 2) {
-            _createBaseCero(msg.sender, 'Wizard', 0, 2, 6, 6);
+            _createBaseCero(msg.sender, _getCeroName(), 0, 2, 6, 6);
         }
     }
 
-    // Create a Cero lvl 1 with base parameters
+    /**
+     * @notice Create Cero lvl1 by params
+     */
     function _createBaseCero(address _owner, string memory _name, uint16 _stB, uint16 _prB, uint16 _agB, uint16 _maB) internal {
         uint16 st = uint16(_stB + random(3));
         uint16 pr = uint16(_prB + random(3));
@@ -81,6 +75,9 @@ contract CeroFactory is Randomize {
         _createCero(_owner, _name, 1, st, pr, ag, ma, 0, 0, true);
     }
 
+    /**
+     * @notice Create Cero by params
+     */
     function _createCero(
         address _owner,
         string memory _name,
@@ -96,7 +93,7 @@ contract CeroFactory is Randomize {
         Cero memory cero = Cero({
             name: _name,
             lvl: _lvl,
-            strenght: _st,
+            strength: _st,
             protection: _pr,
             agility: _ag,
             magic: _ma,
@@ -105,7 +102,7 @@ contract CeroFactory is Randomize {
             isChild: _isChild,
             birthday: uint64(block.timestamp),
             lastFight: 0,
-            cooldown: _getCooldown(_lvl)
+            cooldown: _getCooldown(_lvl) * 60
         });
 
         ceroes.push(cero);
@@ -115,6 +112,10 @@ contract CeroFactory is Randomize {
         ceroesToOwner[newCeroNum] = _owner;
     }
 
+    /**
+     * @notice Calculate cooldown by Cero lvl
+     * @return cooldown in minutes
+     */
     function _getCooldown(uint8 _lvl) private returns (uint32) {
         if (_lvl == 0 ) {
             return 0;

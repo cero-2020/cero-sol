@@ -3,7 +3,7 @@ const CeroFactory = artifacts.require('CeroFactory');
 // function logCero(obj) {
 //   const newObj = {
 //     name: obj.name,
-//     str: obj.strenght.toNumber(),
+//     str: obj.strength.toNumber(),
 //     prot: obj.protection.toNumber(),
 //     agi: obj.agility.toNumber(),
 //     mag: obj.magic.toNumber(),
@@ -11,12 +11,12 @@ const CeroFactory = artifacts.require('CeroFactory');
 //   console.log(newObj);
 // }
 
-contract('Test CeroFactory contract', (accounts) => {
+contract('Test CeroFactory contract. Stress test', (accounts) => {
   const contractOnwer = accounts[0];
   const client1 = accounts[1];
   const client2 = accounts[2];
 
-  const ceroCountToCreate = 50;
+  const ceroCountToCreate = 40;
 
   let instance;
 
@@ -36,7 +36,7 @@ contract('Test CeroFactory contract', (accounts) => {
     it('Check that all Cero have at least 14 and maximum 20 point', async () => {
       for (let i = 1; i <= ceroCountToCreate; i++) {
         const c = await instance.ceroes(i);
-        const points = c.strenght.toNumber() + c.protection.toNumber() + c.agility.toNumber() + c.magic.toNumber();
+        const points = c.strength.toNumber() + c.protection.toNumber() + c.agility.toNumber() + c.magic.toNumber();
         assert.isAtLeast(points, 14);
         assert.isAtMost(points, 20);
       }
